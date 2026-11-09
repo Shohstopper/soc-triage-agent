@@ -1,0 +1,10 @@
+{
+  "A-001": ["true_positive"],
+  "A-002": ["true_positive"],
+  "A-003": ["true_positive"],
+  "A-004": ["true_positive"],
+  "A-005": ["false_positive"],
+  "A-006": ["false_positive"],
+  "A-007": ["true_positive", "escalate"],
+  "A-008": ["true_positive", "escalate"]
+}
