@@ -37,6 +37,8 @@ python triage_agent.py A-005                   triage one alert
 python triage_agent.py                         triage all alerts, saves results.json
 python triage_agent.py --approve A-001 A-005   human approves or rejects each one
 python evaluate.py                             compare results.json with answer_key.json
+python triage_agent.py --hardened              same agent with the prompt injection defences on
+python attack_test.py --label before           run the 14 prompt injection attacks (see PROMPT_INJECTION.md)
 ```
 
 ## Results
@@ -65,8 +67,8 @@ What I noticed reading the reasoning:
 - The alerts are **synthetic**. They are based on my own Wazuh rules and the IOCs from my malware reports, not on a live network.
 - It only looks at IPs and domains. It does not read files, hashes or logs.
 - VirusTotal scores change over time, and 0 detections does not prove something is safe.
-- The prompt is intentionally basic. I want a plain "before" version for the next project.
+- The default prompt is intentionally basic. It is the "before" version in the prompt injection test. Use `--hardened` for the defended version.
 
-## Next: prompt injection testing
+## Prompt injection testing (Project 4)
 
-Alert data can contain attacker-controlled text (hostnames, user agents, URLs). The next project tries to trick this agent with instructions hidden in that text, measures how often it works, and then hardens the agent and tests again. The 8/8 run above is the baseline.
+Alert data can contain text an attacker controls (hostnames, user agents, URLs, usernames). I wrote 14 attack alerts with hidden instructions and ran them against this agent. 6 out of 28 runs (21%) fooled the original version. After hardening, 0 out of 28 did. The full write-up, including what did not work and the limits of the test, is in [PROMPT_INJECTION.md](PROMPT_INJECTION.md).
